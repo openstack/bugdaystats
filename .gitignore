@@ -1,0 +1,7 @@
+*.pyc
+*.swo
+*.swp
+*~
+output/*.html
+output/*.json
+config.js

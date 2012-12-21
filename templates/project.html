@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>{{ project.project|capitalize }} Bug Squashing</title>
+    <script language="javascript" type="text/javascript"
+            src="js/jquery.js"></script>
+    <script language="javascript" type="text/javascript"
+            src="js/jquery.flot.js"></script>
+    <script language="javascript" type="text/javascript"
+            src="js/jquery.flot.stack.js"></script>
+ </head>
+    <body>
+    <div id="{{ project.project }}" 
+         style="width:700px;height:{{ project.height|default(200) }}px;"></div>
+    <script type="text/javascript">
+      var datafile = "{{ project.project }}-bug-stats.json";
+      var range = "#{{ project.project }}";
+      var overview  = "#overview";
+      var package = "{{ project.project }}";
+    </script>
+    <script type="text/javascript" src="js/package-triaging.js"></script>
+  </body>
+</html>

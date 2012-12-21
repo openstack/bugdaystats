@@ -1,0 +1,18 @@
+<HTML>
+<TITLE>Bugsquashing day stats</TITLE>
+<h1>Bugsquashing day stats</h1>
+<TABLE BORDER=0>
+{% for project in projects %}
+<TR><TD>
+{% if project.title %}
+<h2>{{ project.title }}</h2>
+{% else %}
+<h2>{{ project.project|capitalize }}</h2>
+{% endif %}
+</TD>
+<TD><IFRAME SRC="{{ project.project }}.html" WIDTH="750"
+     HEIGHT="{{ project.height|default(230) }}" FRAMEBORDER=NO>
+</IFRAME></TD></TR>
+{% endfor %}
+</TABLE>
+</HTML>

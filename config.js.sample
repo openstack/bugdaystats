@@ -1,0 +1,13 @@
+{
+    "projects": [
+        { "project": "nova", "height": 380 },
+        { "project": "glance" },
+        { "project": "keystone" },
+        { "project": "quantum" },
+        { "project": "cinder" },
+        { "project": "horizon" },
+        { "project": "swift" },
+        { "project": "openstack-manuals", "title": "Manuals" },
+        { "project": "tempest" }
+    ]
+}

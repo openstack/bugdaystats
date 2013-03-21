@@ -9,5 +9,6 @@
         { "project": "swift" },
         { "project": "openstack-manuals", "title": "Manuals" },
         { "project": "tempest" }
-    ]
+    ],
+    "rotation": 2
 }

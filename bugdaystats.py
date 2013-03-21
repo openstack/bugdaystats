@@ -41,7 +41,7 @@ def create_files(templatepath, outputpath, projects):
             template.stream(project=project).dump(projectfile)
 
 
-def update_stats(outputpath, project_name):
+def update_stats(outputpath, project_name, rotation):
 
     now = int(time.time())
     records = []
@@ -55,6 +55,10 @@ def update_stats(outputpath, project_name):
         json_data = json.load(data_file)
         data_file.close()
         for record in json_data['records']:
+            if rotation:
+                if (now - record['date']) > (rotation * 24 * 60 * 60):
+                    print "skip"
+                    continue
             records.append(record)
     except IOError:
         pass
@@ -157,6 +161,7 @@ if __name__ == '__main__':
     with open(configpath, 'r') as configfile:
         config = json.load(configfile)
     projects = config['projects']
+    rotation = config.get('rotation')
 
     # Create files in output directory, if needed
     create_files(templatepath, outputpath, projects)
@@ -166,4 +171,4 @@ if __name__ == '__main__':
                                             cachedir)
 
     for p in projects:
-        update_stats(outputpath, p['project'])
+        update_stats(outputpath, p['project'], rotation)

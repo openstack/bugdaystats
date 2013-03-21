@@ -35,3 +35,7 @@ to generate data for. "height" is an optional parameter detailing
 the size of the graph (230 pixels is the default value). "title"
 is an optional parameter for the name of the project in the index
 page.
+
+You can also optionally specify a 'rotation' parameter. Entries older
+than the value (in days) will be removed from the dataset, resulting
+in a rolling view of bug activity.

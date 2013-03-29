@@ -1,5 +1,20 @@
 <HTML>
 <TITLE>Bugsquashing day stats</TITLE>
+{% if openstack_status %}
+<link rel="stylesheet"
+      href="http://www.openstack.org/themes/openstack/css/blueprint/screen.css"
+      type="text/css" media="screen, projection"/>
+<link rel="stylesheet"
+      href="http://www.openstack.org/themes/openstack/css/blueprint/print.css"
+      type="text/css" media="print"/>
+<link href='http://fonts.googleapis.com/css?family=PT+Sans&amp;subset=latin'
+      rel='stylesheet' type='text/css'/>
+<link rel="stylesheet" type="text/css"
+      href="http://www.openstack.org/themes/openstack/css/main.css" />
+<script type="text/javascript"
+        src="http://status.openstack.org/common.js"></script>
+<script type="text/javascript">header('Bugday');</script>
+{% endif %}
 <h1>Bugsquashing day stats</h1>
 <TABLE BORDER=0>
 {% for project in projects %}
@@ -15,4 +30,7 @@
 </IFRAME></TD></TR>
 {% endfor %}
 </TABLE>
+{% if openstack_status %}
+<script type="text/javascript">footer();</script>
+{% endif %}
 </HTML>

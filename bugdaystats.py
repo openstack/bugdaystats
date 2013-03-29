@@ -29,7 +29,8 @@ def create_files(templatepath, outputpath, projects):
     indexfile = os.path.join(outputpath, "index.html")
     if not os.path.exists(indexfile):
         template = env.get_template('index.html')
-        template.stream(projects=projects).dump(indexfile)
+        template.stream(projects=projects,
+                        openstack_status=openstack_status).dump(indexfile)
 
     # Create each project file
     for project in projects:
@@ -57,7 +58,6 @@ def update_stats(outputpath, project_name, rotation):
         for record in json_data['records']:
             if rotation:
                 if (now - record['date']) > (rotation * 24 * 60 * 60):
-                    print "skip"
                     continue
             records.append(record)
     except IOError:
@@ -162,6 +162,7 @@ if __name__ == '__main__':
         config = json.load(configfile)
     projects = config['projects']
     rotation = config.get('rotation')
+    openstack_status = config.get('openstack_status')
 
     # Create files in output directory, if needed
     create_files(templatepath, outputpath, projects)

@@ -5,3 +5,4 @@
 output/*.html
 output/*.json
 config.js
+bugdaystats.egg-info

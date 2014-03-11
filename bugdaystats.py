@@ -49,7 +49,7 @@ def update_stats(outputpath, project_name, rotation):
     counts = {}
     project = launchpad.projects[project_name]
     project_stats_filename = os.path.join(outputpath,
-                                 "%s-bug-stats.json" % (project_name))
+                                          "%s-bug-stats.json" % (project_name))
 
     try:
         data_file = open(project_stats_filename, 'r')
@@ -75,8 +75,8 @@ def update_stats(outputpath, project_name, rotation):
     open_tasks = project.searchTasks(status=open_statuses,
                                      order_by='-datecreated',
                                      omit_duplicates=True)
-    open_tasks_count = int(
-                       open_tasks._wadl_resource.representation['total_size'])
+    open_tasks_count = int(open_tasks._wadl_resource.representation
+                           ['total_size'])
 
     counts['date'] = now
 
@@ -111,7 +111,7 @@ def update_stats(outputpath, project_name, rotation):
                 status='%s' % closed_status,
                 omit_duplicates=True
             )._wadl_resource.representation['total_size'])
-        status_key = closed_status.replace(" ","").replace("'","").lower()
+        status_key = closed_status.replace(" ", "").replace("'", "").lower()
         counts[status_key] = status_count
 
     for importance in importances:
@@ -124,13 +124,11 @@ def update_stats(outputpath, project_name, rotation):
 
     records.append(counts)
 
-    report = {
-              'keys': ['date', 'new', 'incomplete', 'confirmed', 'triaged',
+    report = {'keys': ['date', 'new', 'incomplete', 'confirmed', 'triaged',
                        'inprogress', 'fixcommitted', 'fixreleased', 'invalid',
                        'wontfix', 'undecided', 'wishlist', 'low', 'medium',
                        'high', 'critical'],
-              'records': records
-             }
+              'records': records}
 
     project_stats_file = open(project_stats_filename, 'w')
     project_stats_file.write(json.dumps(report, indent=4))

@@ -15,6 +15,7 @@
         src="http://status.openstack.org/common.js"></script>
 <script type="text/javascript">header('Bugday');</script>
 {% endif %}
+<DIV class="container">
 <h1>Bugsquashing day stats</h1>
 <TABLE BORDER=0>
 {% for project in projects %}
@@ -30,6 +31,7 @@
 </IFRAME></TD></TR>
 {% endfor %}
 </TABLE>
+</DIV>
 {% if openstack_status %}
 <script type="text/javascript">footer();</script>
 {% endif %}

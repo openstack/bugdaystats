@@ -27,7 +27,8 @@
 </TD>
 <TD><IFRAME SRC="{{ project.project }}.html" WIDTH="750"
      HEIGHT="{{ project.height|default(230) }}" FRAMEBORDER=NO>
-</IFRAME></TD></TR>
+</IFRAME>
+<BR><A HREF="{{ project.project }}-bug-stats.json">JSON FILE</A></TD></TR>
 {% endfor %}
 </TABLE>
 {% if openstack_status %}

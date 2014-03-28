@@ -27,10 +27,9 @@ def create_files(templatepath, outputpath, projects):
     # Create index file
     env = Environment(loader=FileSystemLoader(templatepath))
     indexfile = os.path.join(outputpath, "index.html")
-    if not os.path.exists(indexfile):
-        template = env.get_template('index.html')
-        template.stream(projects=projects,
-                        openstack_status=openstack_status).dump(indexfile)
+    template = env.get_template('index.html')
+    template.stream(projects=projects,
+                    openstack_status=openstack_status).dump(indexfile)
 
     # Create each project file
     for project in projects:

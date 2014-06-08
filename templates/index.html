@@ -1,39 +1,57 @@
-<HTML>
-<TITLE>Bugsquashing day stats</TITLE>
-{% if openstack_status %}
-<link rel="stylesheet"
-      href="http://www.openstack.org/themes/openstack/css/blueprint/screen.css"
-      type="text/css" media="screen, projection"/>
-<link rel="stylesheet"
-      href="http://www.openstack.org/themes/openstack/css/blueprint/print.css"
-      type="text/css" media="print"/>
-<link href='http://fonts.googleapis.com/css?family=PT+Sans&amp;subset=latin'
-      rel='stylesheet' type='text/css'/>
-<link rel="stylesheet" type="text/css"
-      href="http://www.openstack.org/themes/openstack/css/main.css" />
-<script type="text/javascript"
-        src="http://status.openstack.org/common.js"></script>
-<script type="text/javascript">header('Bugday');</script>
-{% endif %}
-<DIV class="container">
-<h1>Bugsquashing day stats</h1>
-<TABLE BORDER=0>
-{% for project in projects %}
-<TR><TD>
-{% if project.title %}
-<h2>{{ project.title }}</h2>
-{% else %}
-<h2>{{ project.project|capitalize }}</h2>
-{% endif %}
-</TD>
-<TD><IFRAME SRC="{{ project.project }}.html" WIDTH="750"
-     HEIGHT="{{ project.height|default(230) }}" FRAMEBORDER=NO>
-</IFRAME>
-<BR><A HREF="{{ project.project }}-bug-stats.json">JSON FILE</A></TD></TR>
-{% endfor %}
-</TABLE>
-</DIV>
-{% if openstack_status %}
-<script type="text/javascript">footer();</script>
-{% endif %}
-</HTML>
+<html>
+ <head>
+  <title>
+   Bugsquashing day stats
+  </title>
+ </head>
+ <body>
+  <p>
+   {% if openstack_status %}
+   <link href="http://www.openstack.org/themes/openstack/css/blueprint/screen.css" media="screen, projection" rel="stylesheet" type="text/css"/>
+   <link href="http://www.openstack.org/themes/openstack/css/blueprint/print.css" media="print" rel="stylesheet" type="text/css"/>
+   <link href="http://fonts.googleapis.com/css?family=PT+Sans&amp;subset=latin" rel="stylesheet" type="text/css"/>
+   <link href="http://www.openstack.org/themes/openstack/css/main.css" rel="stylesheet" type="text/css"/>
+   <script src="http://status.openstack.org/common.js" type="text/javascript">
+   </script>
+   <script type="text/javascript">
+    header('Bugday');
+   </script>
+   {% endif %}
+  </p>
+  <div class="container">
+   <h1>
+    Bugsquashing day stats
+   </h1>
+   <table border="0">
+    {% for project in projects %}
+    <tr>
+     <td>
+      {% if project.title %}
+      <h2>
+       {{ project.title }}
+      </h2>
+      {% else %}
+      <h2>
+       {{ project.project|capitalize }}
+      </h2>
+      {% endif %}
+     </td>
+     <td>
+      <iframe frameborder="NO" height="{{ project.height|default(230) }}" src="{{ project.project }}.html" width="750">
+      </iframe>
+      <br/>
+      <a href="{{ project.project }}-bug-stats.json">
+       JSON FILE
+      </a>
+     </td>
+    </tr>
+    {% endfor %}
+   </table>
+  </div>
+  {% if openstack_status %}
+  <script type="text/javascript">
+   footer();
+  </script>
+  {% endif %}
+ </body>
+</html>

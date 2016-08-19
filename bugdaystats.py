@@ -41,20 +41,29 @@ def create_files(templatepath, outputpath, projects):
             template.stream(project=project).dump(projectfile)
 
 
-def update_stats(outputpath, project_name, rotation):
+def update_stats(outputpath, project_name, rotation, daily=False):
 
     now = int(time.time())
     records = []
     counts = {}
     project = launchpad.projects[project_name]
-    project_stats_filename = os.path.join(outputpath,
-                                          "%s-bug-stats.json" % (project_name))
+    if daily:
+        filename = "%s-bug-stats-daily.json" % project_name
+    else:
+        filename = "%s-bug-stats.json" % project_name
+    project_stats_filename = os.path.join(outputpath, filename)
 
     try:
         data_file = open(project_stats_filename, 'r')
         json_data = json.load(data_file)
         data_file.close()
         for record in json_data['records']:
+            if daily:
+                if (now - record['date']) < (24 * 60 * 60):
+                    # Skip to update stats if the recode contains the same
+                    # day data.
+                    return
+
             if rotation:
                 if (now - record['date']) > (rotation * 24 * 60 * 60):
                     continue
@@ -159,6 +168,8 @@ if __name__ == '__main__':
         config = json.load(configfile)
     projects = config['projects']
     rotation = config.get('rotation')
+    daily = config.get('daily')
+    daily_rotation = config.get('daily_rotation')
     openstack_status = config.get('openstack_status')
 
     # Create files in output directory, if needed
@@ -170,3 +181,6 @@ if __name__ == '__main__':
 
     for p in projects:
         update_stats(outputpath, p['project'], rotation)
+
+        if (daily):
+            update_stats(outputpath, p['project'], daily_rotation, daily=True)

@@ -2,6 +2,7 @@
 *.swo
 *.swp
 *~
+.tox
 output/*.html
 output/*.json
 config.js

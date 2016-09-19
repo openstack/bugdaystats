@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta content="text/html; charset=utf8" http-equiv="Content-Type"/>
+  <title>
+   {{ project.project|capitalize }} Bug Trend
+  </title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.2/d3.min.js" charset="utf-8">
+  </script>
+  <script language="javascript" src="js/nv.d3.min.js"></script>
+  <link href="js/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <style>
+
+    html, body, #chart, svg {
+        margin: 0px;
+        padding: 0px;
+        height: 100%;
+        width: 100%;
+    }
+  </style>
+ </head>
+ <body>
+  <div id="{{ project.project }}" style="width:100%;height:100%;">
+    <svg></svg>
+  </div>
+
+  <script language="javascript" src="js/package-triaging-daily.js"></script>
+  <script type="text/javascript">
+    var testdata;
+    d3.json("{{ project.project }}-bug-stats-daily.json", function(error, dataSet){
+      if(error) return console.warn(error);
+
+      nv.addGraph(function() {
+
+          var chart = nv.models.lineWithFocusChart();
+
+          chart.xAxis.tickFormat(function(d) { return d3.time.format('%m/%d')(new Date(d)); });
+          chart.x2Axis.tickFormat(function(d) { return d3.time.format('%m/%d')(new Date(d)); });
+          chart.forceY([0]);
+
+          d3.select("#{{ project.project }} svg")
+              .datum(convData(dataSet))
+              .call(chart);
+
+          nv.utils.windowResize(chart.update);
+
+          return chart;
+      });
+    });
+  </script>
+ </body>
+</html>

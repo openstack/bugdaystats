@@ -25,22 +25,32 @@ from jinja2 import FileSystemLoader
 from launchpadlib.launchpad import Launchpad
 
 
-def create_files(templatepath, outputpath, projects):
+def create_files(templatepath, outputpath, projects, config):
     # Create index file
     env = Environment(loader=FileSystemLoader(templatepath))
     indexfile = os.path.join(outputpath, "index.html")
     template = env.get_template('index.html')
+    daily = config.get('daily')
     template.stream(projects=projects,
-                    openstack_status=openstack_status).dump(indexfile)
+                    openstack_status=openstack_status,
+                    daily=daily).dump(indexfile)
 
     # Create each project file
     for project in projects:
-        projectfile = os.path.join(outputpath, "%s.html" % project['project'])
+        if 'height' in project:
+            project['height'] = project['height'] - 30
+        projectfile = os.path.join(outputpath,
+                                   "%s.html" % project['project'])
         if not os.path.exists(projectfile):
-            if 'height' in project:
-                project['height'] = project['height'] - 30
             template = env.get_template('project.html')
             template.stream(project=project).dump(projectfile)
+
+        if daily:
+            projectfile = os.path.join(outputpath,
+                                       "%s-daily.html" % project['project'])
+            if not os.path.exists(projectfile):
+                template = env.get_template('project-daily.html')
+                template.stream(project=project).dump(projectfile)
 
 
 def update_stats(outputpath, project_name, rotation, daily=False):
@@ -175,7 +185,7 @@ if __name__ == '__main__':
     openstack_status = config.get('openstack_status')
 
     # Create files in output directory, if needed
-    create_files(templatepath, outputpath, projects)
+    create_files(templatepath, outputpath, projects, config)
 
     # Refresh JSON stats files
     launchpad = Launchpad.login_anonymously('bugdaystats', 'production',

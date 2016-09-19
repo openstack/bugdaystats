@@ -43,6 +43,12 @@
       <a href="{{ project.project }}-bug-stats.json">
        JSON FILE
       </a>
+      {% if daily %}
+      &nbsp;/ <a href="{{ project.project }}-daily.html">Daily Stats</a> / <a href="{{ project.project }}-bug-stats-daily.json">
+       JSON FILE(DAILY)
+      </a>
+      {% endif %}
+
      </td>
     </tr>
     {% endfor %}

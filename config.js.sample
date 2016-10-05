@@ -10,5 +10,7 @@
         { "project": "openstack-manuals", "title": "Manuals" },
         { "project": "tempest" }
     ],
-    "rotation": 2
+    "rotation": 2,
+    "daily": true,
+    "daily_rotation": 183
 }

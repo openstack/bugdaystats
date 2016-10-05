@@ -1,0 +1,9 @@
+Code-Review+2: Joshua Hesketh <joshua.hesketh@rackspace.com>
+Code-Review+2: Elizabeth K. Joseph <lyz@princessleia.com>
+Workflow+1: Elizabeth K. Joseph <lyz@princessleia.com>
+Verified+2: Jenkins
+Submitted-by: Jenkins
+Submitted-at: Wed, 05 Oct 2016 16:59:36 +0000
+Reviewed-on: https://review.openstack.org/358149
+Project: openstack-infra/bugdaystats
+Branch: refs/heads/master

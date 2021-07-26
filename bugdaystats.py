@@ -15,6 +15,7 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
+import json
 import os
 import sys
 import time
@@ -22,7 +23,6 @@ import time
 from jinja2 import Environment
 from jinja2 import FileSystemLoader
 from launchpadlib.launchpad import Launchpad
-import simplejson as json
 
 
 def create_files(templatepath, outputpath, projects):

@@ -1,0 +1,2 @@
+launchpadlib>=1.10.6 # LGPL
+Jinja2

@@ -15,12 +15,14 @@
 #    License for the specific language governing permissions and limitations
 #    under the License.
 
-import simplejson as json
 import os
 import sys
 import time
-from jinja2 import Environment, FileSystemLoader
+
+from jinja2 import Environment
+from jinja2 import FileSystemLoader
 from launchpadlib.launchpad import Launchpad
+import simplejson as json
 
 
 def create_files(templatepath, outputpath, projects):
@@ -146,23 +148,23 @@ def update_stats(outputpath, project_name, rotation, daily=False):
 if __name__ == '__main__':
 
     if len(sys.argv) < 2:
-        print >> sys.stderr, "No directory supplied"
+        print("No directory supplied", file=sys.stderr)
 
     basepath = os.path.dirname(sys.argv[0])
     configpath = os.path.join(basepath, "config.js")
     templatepath = os.path.join(basepath, "templates")
     outputpath = sys.argv[1]
     if not os.path.isdir(outputpath):
-        print >> sys.stderr, '%s is not a directory' % outputpath
+        print('%s is not a directory' % outputpath, file=sys.stderr)
         sys.exit(1)
 
     if not os.path.isfile(configpath):
-        print >> sys.stderr, '%s does not contain config.js' % basepath
+        print('%s does not contain config.js' % basepath, file=sys.stderr)
         sys.exit(1)
 
     cachedir = os.path.expanduser("~/.launchpadlib/cache/")
     if not os.path.exists(cachedir):
-        os.makedirs(cachedir, 0700)
+        os.makedirs(cachedir, 0o0700)
 
     with open(configpath, 'r') as configfile:
         config = json.load(configfile)
